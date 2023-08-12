@@ -4,6 +4,7 @@ def parse_repo_json_data(json_data: str):
     # execution
     repo_data_dict = json.loads(json_data)
     keys_to_keep = [
+        "id",
         "created_at",
         "default_branch",
         "description",

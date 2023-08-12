@@ -20,7 +20,7 @@ else:
 
 @app.get("/")
 def read_root():
-    return {"Message": "This is a nice app that gets some GitHub repo info"}
+    return {"message": "This is a nice app that gets some GitHub repo info"}
 
 
 @app.get("/repos/{url}", responses=url_get_responses)
