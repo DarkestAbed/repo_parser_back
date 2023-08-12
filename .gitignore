@@ -4,3 +4,5 @@ __pycache__/
 # files
 *.pyc
 *.cpython
+*.db
+.env

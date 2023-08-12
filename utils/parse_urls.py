@@ -13,12 +13,9 @@ def parse_url_with_amperson(url: str):
 
 
 def parse_url_with_quotes(url: str):
-    from icecream import ic
     # execution
     # # check if '&' char is on url
-    ic(url)
     is_quotes_on_url = url.find("\"")
-    ic(is_quotes_on_url)
     # # if no amperson, return url
     if is_quotes_on_url == -1:
         return None

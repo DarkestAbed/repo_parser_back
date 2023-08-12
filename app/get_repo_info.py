@@ -1,6 +1,7 @@
 from utils.parse_json_data import parse_repo_json_data
+from app.exceptions import RemoteRepoNotFound
 
-def get_repo_info_raw(repo_location: str):
+def get_repo_info(url: str):
     # imports
     import subprocess
     # data def
@@ -9,7 +10,7 @@ def get_repo_info_raw(repo_location: str):
         "api",
         "--method",
         "GET",
-        f"repos/{repo_location}",
+        f"repos/{url}",
     ]
     # execution
     proc = subprocess.run(args=proc_list, shell=False, capture_output=True)
@@ -17,7 +18,7 @@ def get_repo_info_raw(repo_location: str):
     operation_fail = proc.stderr.decode("utf-8")
     # # safeguard if op fails
     if not operation_fail == "":
-        return None
+        raise RemoteRepoNotFound
     # # parsing json data
     repo_data_dict = parse_repo_json_data(json_data=repo_data_json)
     return repo_data_dict
