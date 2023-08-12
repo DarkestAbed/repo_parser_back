@@ -1,6 +1,7 @@
 def parse_repo_json_data(json_data: str):
     # imports
     import json
+
     # execution
     repo_data_dict = json.loads(json_data)
     keys_to_keep = [
@@ -23,7 +24,6 @@ def parse_repo_json_data(json_data: str):
         if key in repo_data_dict:
             repo_data_return[key] = repo_data_dict[key]
     list_data = repo_data_return["topics"]
-    string_data = " / ".join( x for x in list_data)
+    string_data = " / ".join(x for x in list_data)
     repo_data_return["topics"] = string_data
     return repo_data_return
-

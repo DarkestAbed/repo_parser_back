@@ -2,10 +2,11 @@ def get_responses(call: str):
     # imports
     import json
     import os
+
     # data def
     path = os.path.join(os.getcwd(), "assets")
     # execution
-    responses_json = [ f for f in os.listdir(path=path) if "responses" in f ]
+    responses_json = [f for f in os.listdir(path=path) if "responses" in f]
     for response in responses_json:
         if call in response:
             file_to_open = response

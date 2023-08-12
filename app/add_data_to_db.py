@@ -1,12 +1,15 @@
+from databases import Database
+
+from app.exceptions import ErrorAddingRepoToSQLite, RemoteRepoNotFound
 from app.get_repo_info import get_repo_info
 from services.sqlite import insert_data_into_repos
-from databases import Database
-from app.exceptions import RemoteRepoNotFound, ErrorAddingRepoToSQLite
+
 
 async def add_repo_to_db(db: Database, url: str):
     # imports
-    from datetime import datetime
     import logging
+    from datetime import datetime
+
     # execution
     data_to_add = get_repo_info(url=url)
     if data_to_add is None:

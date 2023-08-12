@@ -15,12 +15,12 @@ def parse_url_with_amperson(url: str):
 def parse_url_with_quotes(url: str):
     # execution
     # # check if '&' char is on url
-    is_quotes_on_url = url.find("\"")
+    is_quotes_on_url = url.find('"')
     # # if no amperson, return url
     if is_quotes_on_url == -1:
         return None
     elif is_quotes_on_url > 0:
-        url_return = url.replace("\"", "")
+        url_return = url.replace('"', "")
         return url_return
     else:
         raise Exception("Error parsing string")

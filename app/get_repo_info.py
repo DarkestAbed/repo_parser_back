@@ -1,9 +1,11 @@
-from utils.parse_json_data import parse_repo_json_data
 from app.exceptions import RemoteRepoNotFound
+from utils.parse_json_data import parse_repo_json_data
+
 
 def get_repo_info(url: str):
     # imports
     import subprocess
+
     # data def
     proc_list = [
         "gh",

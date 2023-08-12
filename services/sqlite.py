@@ -1,14 +1,17 @@
 import sqlalchemy
 from databases import Database
+
 from services.table_definitions.repos import Repos
+
 
 async def create_base_table(db: Database):
     # imports
     import logging
+
     # execution
     dialect = sqlalchemy.dialects.sqlite.dialect()
     metadata = sqlalchemy.MetaData()
-    
+
     repos = Repos(metadata=metadata)
 
     for table in metadata.tables.values():
@@ -23,6 +26,7 @@ async def create_base_table(db: Database):
 async def insert_data_into_repos(db: Database, repo: dict):
     # imports
     import logging
+
     # data def
     query = """
         INSERT INTO 

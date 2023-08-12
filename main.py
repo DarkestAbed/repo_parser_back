@@ -1,22 +1,22 @@
-from typing import Union
-from fastapi import FastAPI, HTTPException
-from app.get_repo_info import get_repo_info
-from utils.parse_urls import parse_url
-from utils.check_for_gh import check_for_gh
-from utils.get_jsons import get_responses
-from databases import Database
-import sys
-from services.sqlite import create_base_table
 import logging
 import os
-from services.read_env import read_environ
-from app.add_data_to_db import add_repo_to_db
-from app.exceptions import RemoteRepoNotFound, ErrorAddingRepoToSQLite
+import sys
+from typing import Union
 
+from databases import Database
+from fastapi import FastAPI, HTTPException
+
+from app.add_data_to_db import add_repo_to_db
+from app.exceptions import ErrorAddingRepoToSQLite, RemoteRepoNotFound
+from app.get_repo_info import get_repo_info
+from services.read_env import read_environ
+from services.sqlite import create_base_table
+from utils.check_for_gh import check_for_gh
+from utils.get_jsons import get_responses
+from utils.parse_urls import parse_url
 
 logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s'
+    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
 )
 
 url_get_responses = get_responses(call="get")
@@ -31,7 +31,7 @@ app = FastAPI(
         GitHub non-starred repos. It will provide a front-end interface so you can see some repo
         information, such as last updated, topics, and repo description and domain.
         """,
-    version="0.0.1"
+    version="0.0.1",
 )
 database = Database(os.getenv("SQLITE_PATH"))
 
@@ -90,6 +90,9 @@ async def insert_repo(url: str):
         await add_repo_to_db(db=database, url=repo_location)
         return data_to_add
     except RemoteRepoNotFound as e:
-        raise HTTPException(status_code=403, detail=f"Repo '{repo_location}' not found and cannot be added")
+        raise HTTPException(
+            status_code=403,
+            detail=f"Repo '{repo_location}' not found and cannot be added",
+        )
     except ErrorAddingRepoToSQLite as e:
         raise HTTPException(status_code=503, detail="Error adding the repo to database")
