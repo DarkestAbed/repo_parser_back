@@ -1,10 +1,19 @@
 import logging
-from databases import Database
 
-from services.db import insert_data_into_repos
+from app.exceptions import NoDataOnRepoDatabase
+from services.db.retrieve_all_data_from_repos import get_all_repo_data
+from services.sqlite import SQLiteDatabase
 
 
-async def add_repo_to_db(db: Database):
+async def add_repo_to_db(db: SQLiteDatabase):
     # execution
-    ## method to fetch all data from repositories table
-    pass
+    logging.debug(db)
+    try:
+        result = await get_all_repo_data(db=db)
+        return result
+    except NoDataOnRepoDatabase:
+        logging.error("EXCEPTION FOUND: No data was found on 'repositories' table")
+        return None
+    except Exception as e:
+        logging.error(f"EXCEPTION FOUND: {e}")
+        return None

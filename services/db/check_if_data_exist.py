@@ -14,7 +14,4 @@ async def check_if_data_exists(db: SQLiteDatabase, id_db: int):
     result_bool = False if result is None else True
     logging.debug(result_bool)
     logging.debug(f"Is the data present?: {result_bool}")
-    if result is None:
-        return False
-    else:
-        return True
+    return result_bool

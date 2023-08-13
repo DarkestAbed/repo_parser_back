@@ -12,3 +12,7 @@ class NoEnvironmentFound(Exception):
 
 class RepoAlreadyExistsOnDB(Exception):
     pass
+
+
+class NoDataOnRepoDatabase(Exception):
+    pass

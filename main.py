@@ -8,6 +8,7 @@ from fastapi import FastAPI, HTTPException
 
 from app.add_data_to_db import add_repo_to_db
 from app.exceptions import ErrorAddingRepoToSQLite, RemoteRepoNotFound
+from app.get_all_local_data import get_all_repo_data
 from app.get_repo_info import get_repo_info
 from services.sqlite import SQLiteDatabase
 from services.read_env import read_environ
@@ -58,7 +59,7 @@ def read_root():
     return {"message": "This is a nice app that gets some GitHub repo info"}
 
 
-@app.get("/githubrepos/{url}", responses=url_get_responses)
+@app.get("/get-remote-repo/{url}", responses=url_get_responses)
 def read_url(url: Union[str, None] = None):
     if url is None:
         raise HTTPException(status_code=400, detail="No repo URL provided")
@@ -71,12 +72,19 @@ def read_url(url: Union[str, None] = None):
         return repo_data
 
 
-@app.get("/localrepos/")
+@app.get("/get-local-repos/")
 async def read_all_repos_from_local():
-    pass
+    try:
+        repo_data = await get_all_repo_data(db=database)
+        if repo_data is None:
+            raise HTTPException(status_code=501, detail=f"No repo data on database")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error fetching repo data")
+    else:
+        return repo_data
 
 
-@app.post("/putrepo/{url}", responses=url_post_responses)
+@app.post("/put-new-repo/{url}", responses=url_post_responses)
 async def insert_repo(url: str):
     repo_location = parse_url(url=url)
     try:
