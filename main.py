@@ -84,6 +84,7 @@ async def insert_repo(url: str):
         logging.debug(data_to_add)
         logging.debug(database)
         await add_repo_to_db(db=database, url=repo_location)
+        logging.info(f"Repo '{url}' added to SQLite database")
         return data_to_add
     except RemoteRepoNotFound as e:
         raise HTTPException(
