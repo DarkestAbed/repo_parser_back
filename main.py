@@ -24,15 +24,16 @@ url_get_responses = get_responses(call="get")
 url_post_responses = get_responses(call="put")
 read_environ()
 
+semantic_version = "0.1.0"
 app = FastAPI(
-    title="RepoParser Backend v0.0.1",
+    title=f"RepoParser Backend v{semantic_version}",
     summary="""
         Local app to store all your non-starred GitHub repos.
         This application is the Python backend (built with FastAPI) for a local store for your
         GitHub non-starred repos. It will provide a front-end interface so you can see some repo
         information, such as last updated, topics, and repo description and domain.
         """,
-    version="0.0.1",
+    version=semantic_version,
 )
 database = SQLiteDatabase(conn_string=os.getenv("SQLITE_PATH"))
 logging.debug(database)
