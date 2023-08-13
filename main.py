@@ -16,7 +16,7 @@ from utils.get_jsons import get_responses
 from utils.parse_urls import parse_url
 
 logging.basicConfig(
-    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+    level=logging.DEBUG, format="%(asctime)s - %(levelname)s - %(message)s"
 )
 
 url_get_responses = get_responses(call="get")

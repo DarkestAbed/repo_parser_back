@@ -9,6 +9,7 @@ class Repos:
             "repositories",
             self.metadata,
             sqlalchemy.Column("id", sqlalchemy.Integer, primary_key=True),
+            sqlalchemy.Column("url", sqlalchemy.String),
             sqlalchemy.Column("name", sqlalchemy.String),
             sqlalchemy.Column("created_at", sqlalchemy.String),
             sqlalchemy.Column("updated_at", sqlalchemy.String),

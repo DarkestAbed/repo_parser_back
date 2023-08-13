@@ -22,5 +22,5 @@ def get_repo_info(url: str):
     if not operation_fail == "":
         raise RemoteRepoNotFound
     # # parsing json data
-    repo_data_dict = parse_repo_json_data(json_data=repo_data_json)
+    repo_data_dict = parse_repo_json_data(json_data=repo_data_json, url=url)
     return repo_data_dict

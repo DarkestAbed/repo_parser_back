@@ -1,4 +1,4 @@
-def parse_repo_json_data(json_data: str):
+def parse_repo_json_data(json_data: str, url: str):
     # imports
     import json
 
@@ -26,4 +26,5 @@ def parse_repo_json_data(json_data: str):
     list_data = repo_data_return["topics"]
     string_data = " / ".join(x for x in list_data)
     repo_data_return["topics"] = string_data
+    repo_data_return["url"] = url
     return repo_data_return
