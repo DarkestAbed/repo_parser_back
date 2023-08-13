@@ -1,12 +1,12 @@
 import logging
 import sqlalchemy
-from databases import Database
 
+from services.sqlite import SQLiteDatabase
 from services.table_definitions.repos import Repos
 from services.table_definitions.topics import Topics
 
 
-async def create_base_table(db: Database):
+async def create_base_table(db: SQLiteDatabase):
     # execution
     dialect = sqlalchemy.dialects.sqlite.dialect()
     metadata = sqlalchemy.MetaData()

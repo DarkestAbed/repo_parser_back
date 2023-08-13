@@ -16,3 +16,7 @@ class RepoAlreadyExistsOnDB(Exception):
 
 class NoDataOnRepoDatabase(Exception):
     pass
+
+
+class NoTopicOnRepo(Exception):
+    pass

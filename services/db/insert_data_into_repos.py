@@ -1,12 +1,12 @@
 import logging
-from databases import Database
 from datetime import datetime
 
+from services.sqlite import SQLiteDatabase
 from services.db.check_if_data_exist import check_if_data_exists
 from app.exceptions import RepoAlreadyExistsOnDB
 
 
-async def insert_data_into_repos(db: Database, repo: dict):
+async def insert_data_into_repos(db: SQLiteDatabase, repo: dict):
     # data def
     query = """
         INSERT INTO 
