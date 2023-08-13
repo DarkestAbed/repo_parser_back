@@ -1,11 +1,10 @@
+import subprocess
+
 from app.exceptions import RemoteRepoNotFound
 from utils.parse_json_data import parse_repo_json_data
 
 
 def get_repo_info(url: str):
-    # imports
-    import subprocess
-
     # data def
     proc_list = [
         "gh",
@@ -14,6 +13,7 @@ def get_repo_info(url: str):
         "GET",
         f"repos/{url}",
     ]
+    
     # execution
     proc = subprocess.run(args=proc_list, shell=False, capture_output=True)
     repo_data_json = proc.stdout.decode("utf-8")

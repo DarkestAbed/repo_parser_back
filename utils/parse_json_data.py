@@ -1,7 +1,6 @@
-def parse_repo_json_data(json_data: str, url: str):
-    # imports
-    import json
+import json
 
+def parse_repo_json_data(json_data: str, url: str):
     # execution
     repo_data_dict = json.loads(json_data)
     keys_to_keep = [

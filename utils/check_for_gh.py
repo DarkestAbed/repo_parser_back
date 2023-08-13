@@ -1,8 +1,8 @@
-def check_for_gh():
-    # imports
-    import logging
-    import shutil
+import logging
+import shutil
 
+
+def check_for_gh():
     # execution
     logging.info("Checking for 'gh' bin existence...")
     gh_path = shutil.which("gh")

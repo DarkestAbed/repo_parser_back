@@ -1,10 +1,10 @@
-def get_responses(call: str):
-    # imports
-    import json
-    import os
+import json
+import os
 
+def get_responses(call: str):
     # data def
     path = os.path.join(os.getcwd(), "assets")
+
     # execution
     responses_json = [f for f in os.listdir(path=path) if "responses" in f]
     for response in responses_json:

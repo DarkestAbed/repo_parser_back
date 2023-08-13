@@ -9,8 +9,9 @@ from fastapi import FastAPI, HTTPException
 from app.add_data_to_db import add_repo_to_db
 from app.exceptions import ErrorAddingRepoToSQLite, RemoteRepoNotFound
 from app.get_repo_info import get_repo_info
+from services.sqlite import SQLiteDatabase
 from services.read_env import read_environ
-from services.sqlite import create_base_table
+
 from utils.check_for_gh import check_for_gh
 from utils.get_jsons import get_responses
 from utils.parse_urls import parse_url
@@ -33,21 +34,15 @@ app = FastAPI(
         """,
     version="0.0.1",
 )
-database = Database(os.getenv("SQLITE_PATH"))
-
-
-@app.on_event("startup")
-async def database_connect():
-    logging.info("Connecting to SQLite database...")
-    await database.connect()
-    await create_base_table(db=database)
-
+database = SQLiteDatabase(conn_string=os.getenv("SQLITE_PATH"))
+logging.debug(database)
 
 @app.on_event("startup")
-def check_dependencies():
+async def check_dependencies():
     init_test = check_for_gh()
     if init_test:
         logging.info("All dependencies found.")
+        await database.connect_db()
     else:
         logging.info("Missing dependencies on local. Exiting now...")
         sys.exit(1)
@@ -55,8 +50,7 @@ def check_dependencies():
 
 @app.on_event("shutdown")
 async def database_disconnect():
-    logging.info("Disconnecting from SQLite database...")
-    await database.disconnect()
+    await database.disconnect_db()
 
 
 @app.get("/")
@@ -87,6 +81,8 @@ async def insert_repo(url: str):
     repo_location = parse_url(url=url)
     try:
         data_to_add = get_repo_info(url=repo_location)
+        logging.debug(data_to_add)
+        logging.debug(database)
         await add_repo_to_db(db=database, url=repo_location)
         return data_to_add
     except RemoteRepoNotFound as e:

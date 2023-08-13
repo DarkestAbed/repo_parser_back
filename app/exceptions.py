@@ -4,3 +4,11 @@ class RemoteRepoNotFound(Exception):
 
 class ErrorAddingRepoToSQLite(Exception):
     pass
+
+
+class NoEnvironmentFound(Exception):
+    pass
+
+
+class RepoAlreadyExistsOnDB(Exception):
+    pass
