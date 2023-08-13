@@ -1,5 +1,4 @@
 import sqlalchemy
-from pydantic import BaseModel
 
 
 class Repos:

@@ -3,6 +3,7 @@ import sqlalchemy
 from databases import Database
 
 from services.table_definitions.repos import Repos
+from services.table_definitions.topics import Topics
 
 
 async def create_base_table(db: Database):
@@ -10,7 +11,9 @@ async def create_base_table(db: Database):
     dialect = sqlalchemy.dialects.sqlite.dialect()
     metadata = sqlalchemy.MetaData()
     repos = Repos(metadata=metadata)
+    topics = Topics(metadata=metadata)
     logging.debug(repos)
+    logging.debug(topics)
     for table in metadata.tables.values():
         # Set `if_not_exists=False` if you want the query to throw an
         # exception when the table already exists

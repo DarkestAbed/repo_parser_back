@@ -3,7 +3,6 @@ import os
 import sys
 from typing import Union
 
-from databases import Database
 from fastapi import FastAPI, HTTPException
 
 from app.add_data_to_db import add_repo_to_db
@@ -37,6 +36,7 @@ app = FastAPI(
 )
 database = SQLiteDatabase(conn_string=os.getenv("SQLITE_PATH"))
 logging.debug(database)
+
 
 @app.on_event("startup")
 async def check_dependencies():
