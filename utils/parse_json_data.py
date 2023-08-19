@@ -16,6 +16,7 @@ def parse_repo_json_data(json_data: str, url: str):
         "private",
         "topics",
         "updated_at",
+        "pushed_at",
         "visibility",
     ]
     repo_data_return = {}

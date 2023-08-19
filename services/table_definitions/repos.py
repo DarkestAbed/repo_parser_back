@@ -12,6 +12,7 @@ class Repos:
             sqlalchemy.Column("name", sqlalchemy.String),
             sqlalchemy.Column("created_at", sqlalchemy.String),
             sqlalchemy.Column("updated_at", sqlalchemy.String),
+            sqlalchemy.Column("pushed_at", sqlalchemy.String),
             sqlalchemy.Column("description", sqlalchemy.String),
             sqlalchemy.Column("fork", sqlalchemy.Boolean),
             sqlalchemy.Column("disabled", sqlalchemy.Boolean),
