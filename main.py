@@ -4,6 +4,7 @@ import sys
 from typing import Union
 
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 
 from app.add_data_to_db import add_repo_to_db
 from app.exceptions import ErrorAddingRepoToSQLite, RemoteRepoNotFound
@@ -37,6 +38,15 @@ app = FastAPI(
 )
 database = SQLiteDatabase(conn_string=os.getenv("SQLITE_PATH"))
 logging.debug(database)
+
+origins = ["*"]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.on_event("startup")
