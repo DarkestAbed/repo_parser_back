@@ -17,6 +17,7 @@ async def insert_data_into_repos(db: SQLiteDatabase, repo: dict):
                 ,name
                 ,created_at
                 ,updated_at
+                ,pushed_at
                 ,description
                 ,fork
                 ,disabled
@@ -35,6 +36,7 @@ async def insert_data_into_repos(db: SQLiteDatabase, repo: dict):
                 ,:name
                 ,:created_at
                 ,:updated_at
+                ,:pushed_at
                 ,:description
                 ,:fork
                 ,:disabled
