@@ -20,3 +20,6 @@ class NoDataOnRepoDatabase(Exception):
 
 class NoTopicOnRepo(Exception):
     pass
+
+class NoSQLiteDatabase(Exception):
+    pass
