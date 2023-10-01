@@ -7,7 +7,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.add_data_to_db import add_repo_to_db
-from app.exceptions import ErrorAddingRepoToSQLite, RemoteRepoNotFound
+from app.exceptions import ErrorAddingRepoToSQLite, RemoteRepoNotFound, NoEnvironmentFound
 from app.get_all_local_data import get_all_repo_data
 from app.get_repo_info import get_repo_info
 from services.sqlite import SQLiteDatabase
@@ -18,12 +18,18 @@ from utils.get_jsons import get_responses
 from utils.parse_urls import parse_url
 
 logging.basicConfig(
-    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+    level=logging.DEBUG, format="%(asctime)s - %(levelname)s - %(message)s"
 )
 
 url_get_responses = get_responses(call="get")
 url_post_responses = get_responses(call="put")
-read_environ()
+
+# reading env vars
+try:
+    read_environ()
+except NoEnvironmentFound:
+    logging.error("No environment variables were set. Exiting now...")
+    sys.exit(1)
 
 semantic_version = "0.1.0"
 app = FastAPI(
