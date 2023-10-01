@@ -1,0 +1,8 @@
+{
+    "403": {
+        "description": "Requested GitHub repository not found."
+    },
+    "503": {
+        "description": "Requested GitHub repository could not be added to database."
+    }
+}

@@ -1,0 +1,8 @@
+{
+    "400": {
+        "description": "No GitHub repository URL provided."
+    },
+    "404": {
+        "description": "Requested GitHub repository not found."
+    }
+}
